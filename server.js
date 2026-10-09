@@ -137,6 +137,8 @@ const server = http.createServer(async (req, res) => {
   if (pathname === "/healthz") return send(res, 200, "ok", MIME[".txt"]);
 
   if (pathname === "/api/photos") {
+    // No token configured: the site still works as plain HTML; the photo sections stay hidden.
+    if (!TOKEN) return send(res, 200, "[]", MIME[".json"], { "Cache-Control": "no-store", "X-Photos-Configured": "false" });
     try {
       const photos = await getPhotos();
       return send(res, 200, JSON.stringify(photos), MIME[".json"], { "Cache-Control": "public, max-age=300" });

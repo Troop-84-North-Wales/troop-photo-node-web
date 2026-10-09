@@ -178,15 +178,18 @@
     show(0);
   }
 
+  // Photo sections start hidden in the HTML and are only revealed once photos
+  // actually load. With no Facebook token (or no server, e.g. opened from disk),
+  // they simply stay hidden and the rest of the site works as plain HTML.
   roots.forEach(function (root) {
+    var section = root.closest(".carousel-section") || root;
     loadPhotos().then(function (photos) {
       photos = photos.slice();
       if (C.carouselShuffle) shuffle(photos);
       if (MAX > 0) photos = photos.slice(0, MAX);
-      if (!photos.length) return fallback(root, "No photos have been posted yet.");
+      if (!photos.length) return;
+      section.hidden = false;
       build(root, photos);
-    }).catch(function () {
-      fallback(root, "Photos couldn't be loaded right now.");
-    });
+    }).catch(function () { /* leave the photo section hidden */ });
   });
 })();
