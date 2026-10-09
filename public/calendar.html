@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendar · Troop 84 North Wales, PA</title>
+  <meta name="description" content="Troop 84 calendar of meetings, campouts and events.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="logo/84Logo.png" type="image/png">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="logo/84Logo.png" width="339" height="353" alt="Troop 84 North Wales logo">
+        <span class="brand-text"><strong data-field="troopName">Troop 84</strong><span>Scouts BSA · <span data-field="town">North Wales, PA</span></span></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">☰</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="history.html">History</a></li>
+          <li><a href="calendar.html" aria-current="page">Calendar</a></li>
+          <li><a href="photos.html">Photos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero page-hero">
+      <div class="container">
+        <div class="eyebrow">Troop calendar</div>
+        <h1>What's coming up</h1>
+        <p>Meetings, campouts, and service projects. Regular meetings are <span data-field="meetingDay">Thursday evenings</span>, <span data-field="meetingTime">7:30–9:00 pm</span>.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="calendar-frame" id="calendar-embed" hidden></div>
+
+        <div class="empty-state" id="calendar-empty">
+          <div class="icon" aria-hidden="true">📅</div>
+          <h3>The calendar isn't connected yet</h3>
+          <p>To show the troop's Google Calendar here, paste its calendar ID into <code>js/config.js</code>.</p>
+          <ol>
+            <li>Open <a href="https://calendar.google.com" target="_blank" rel="noopener">Google Calendar</a> on a computer.</li>
+            <li>Next to the troop calendar, click <strong>⋮ → Settings and sharing</strong>.</li>
+            <li>Under <strong>Access permissions</strong>, check <strong>Make available to public</strong>.</li>
+            <li>Scroll to <strong>Integrate calendar</strong> and copy the <strong>Calendar ID</strong> (looks like <code>…@group.calendar.google.com</code>).</li>
+            <li>In <code>js/config.js</code>, replace <code>PASTE_YOUR_CALENDAR_ID_HERE</code> with that ID, save, and refresh this page.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-identity">
+          <img class="footer-logo" src="logo/84Logo.png" width="339" height="353" alt="">
+          <div>
+            <h4 data-field="troopFullName">BSA Troop 84 North Wales, PA</h4>
+            <p>A Scouts BSA unit for youth ages 11–18.</p>
+          </div>
+        </div>
+        <div>
+          <h4>Meetings</h4>
+          <p><span data-field="meetingDay">Thursday evenings</span>, <span data-field="meetingTime">7:30–9:00 pm</span><br>
+            <span data-field="meetingPlace">North Wales Scout Center</span><br>
+            <span data-field="meetingAddress">300 Church Street, North Wales, PA</span></p>
+        </div>
+        <div>
+          <h4>Links</h4>
+          <p><a href="calendar.html">Troop calendar</a><br>
+            <a href="photos.html">Photo galleries</a><br>
+            <a data-href="scoutsBsaInfoUrl" href="https://www.scouting.org/programs/scouts-bsa/" target="_blank" rel="noopener">About Scouts BSA ↗</a></p>
+        </div>
+      </div>
+      <p class="footer-note">© <span data-year>2026</span> Troop 84 North Wales, PA · A refreshed static site based on the
+        <a data-href="originalSiteUrl" href="https://www.troop84northwalespa.org/" target="_blank" rel="noopener">current Troop 84 website</a>.</p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

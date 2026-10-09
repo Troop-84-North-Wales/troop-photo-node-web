@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: troop84-site
+    runtime: node
+    plan: free
+    buildCommand: "echo no build step"
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: FB_PAGE_ID
+        value: "1312640681940485"
+      - key: FB_PAGE_TOKEN
+        sync: false

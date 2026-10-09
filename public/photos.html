@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photos · Troop 84 North Wales, PA</title>
+  <meta name="description" content="Troop 84 photo galleries on Facebook and Google Photos.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="logo/84Logo.png" type="image/png">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="logo/84Logo.png" width="339" height="353" alt="Troop 84 North Wales logo">
+        <span class="brand-text"><strong data-field="troopName">Troop 84</strong><span>Scouts BSA · <span data-field="town">North Wales, PA</span></span></span>
+      </a>
+      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">☰</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="history.html">History</a></li>
+          <li><a href="calendar.html">Calendar</a></li>
+          <li><a href="photos.html" aria-current="page">Photos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="hero page-hero">
+      <div class="container">
+        <div class="eyebrow">Photo galleries</div>
+        <h1>Troop photos</h1>
+        <p>Campouts, courts of honor, and service projects. Watch the slideshow below, or open the full galleries in a new tab.</p>
+      </div>
+    </section>
+
+    <section class="section carousel-section" aria-labelledby="photos-carousel-title">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="photos-carousel-title">Photo slideshow</h2>
+          <p>Troop 84 Photos 2023–2026, live from Facebook. Click a photo to open it on Facebook.</p>
+        </div>
+        <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Troop photos from Facebook">
+          <div class="carousel-viewport" tabindex="0">
+            <div class="carousel-status" role="status">Loading photos…</div>
+          </div>
+          <button class="carousel-btn prev" type="button" aria-label="Previous photo" hidden>‹</button>
+          <button class="carousel-btn next" type="button" aria-label="Next photo" hidden>›</button>
+          <div class="carousel-bar" hidden>
+            <button class="carousel-play" type="button" aria-label="Pause slideshow">❚❚</button>
+            <span class="carousel-counter" aria-live="polite"></span>
+            <a class="carousel-fb" data-href="facebookPageUrl" href="https://www.facebook.com/1312640681940485" target="_blank" rel="noopener">View on Facebook ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container">
+        <div class="grid">
+          <div class="card gallery-card facebook" id="card-facebook" hidden>
+            <div class="icon" aria-hidden="true">📘</div>
+            <h3>Facebook photos</h3>
+            <p>Browse albums posted on the troop's Facebook page.</p>
+            <a class="btn btn-navy" href="#" target="_blank" rel="noopener">Open Facebook album ↗</a>
+          </div>
+          <div class="card gallery-card google" id="card-google" hidden>
+            <div class="icon" aria-hidden="true">🖼️</div>
+            <h3>Google Photos</h3>
+            <p>View the shared troop album on Google Photos.</p>
+            <a class="btn btn-navy" href="#" target="_blank" rel="noopener">Open Google Photos ↗</a>
+          </div>
+        </div>
+
+        <div class="empty-state" id="photos-empty">
+          <div class="icon" aria-hidden="true">📷</div>
+          <h3>Photo galleries coming soon</h3>
+          <p>To show gallery buttons here, add share links in <code>js/config.js</code>:</p>
+          <ol>
+            <li><strong>Facebook:</strong> open the album, copy the URL from the address bar (album should be set to Public), and replace <code>PASTE_FACEBOOK_ALBUM_URL_HERE</code>.</li>
+            <li><strong>Google Photos:</strong> open the album, click <strong>Share → Create link</strong>, copy it, and replace <code>PASTE_GOOGLE_PHOTOS_ALBUM_URL_HERE</code>.</li>
+            <li>Save the file and refresh this page. Each gallery card appears once its link is set.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-identity">
+          <img class="footer-logo" src="logo/84Logo.png" width="339" height="353" alt="">
+          <div>
+            <h4 data-field="troopFullName">BSA Troop 84 North Wales, PA</h4>
+            <p>A Scouts BSA unit for youth ages 11–18.</p>
+          </div>
+        </div>
+        <div>
+          <h4>Meetings</h4>
+          <p><span data-field="meetingDay">Thursday evenings</span>, <span data-field="meetingTime">7:30–9:00 pm</span><br>
+            <span data-field="meetingPlace">North Wales Scout Center</span><br>
+            <span data-field="meetingAddress">300 Church Street, North Wales, PA</span></p>
+        </div>
+        <div>
+          <h4>Links</h4>
+          <p><a href="calendar.html">Troop calendar</a><br>
+            <a href="photos.html">Photo galleries</a><br>
+            <a data-href="scoutsBsaInfoUrl" href="https://www.scouting.org/programs/scouts-bsa/" target="_blank" rel="noopener">About Scouts BSA ↗</a></p>
+        </div>
+      </div>
+      <p class="footer-note">© <span data-year>2026</span> Troop 84 North Wales, PA · A refreshed static site based on the
+        <a data-href="originalSiteUrl" href="https://www.troop84northwalespa.org/" target="_blank" rel="noopener">current Troop 84 website</a>.</p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/carousel.js"></script>
+</body>
+</html>
