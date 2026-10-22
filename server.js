@@ -26,6 +26,10 @@ const PAGE_ID = process.env.FB_PAGE_ID || "1312640681940485";
 const TOKEN = process.env.FB_PAGE_TOKEN || "";
 const GRAPH = "https://graph.facebook.com/" + (process.env.FB_GRAPH_VERSION || "v21.0");
 const CACHE_MS = (Number(process.env.PHOTO_CACHE_MINUTES) || 15) * 60 * 1000;
+// Only photos from this one album are ever shown (fundraising posters only; no kids' faces).
+// FB_ALBUM_ID wins if set; otherwise the album is looked up by name on the Page.
+const ALBUM_ID = process.env.FB_ALBUM_ID || "";
+const ALBUM_NAME = (process.env.FB_ALBUM_NAME || "Fundraisers").trim().toLowerCase();
 const MAX_PAGES = 20;          // safety cap: 20 x 100 photos
 const TARGET_WIDTH = 1280;
 const PUBLIC_DIR = path.join(__dirname, "public");
@@ -53,12 +57,37 @@ let cache = { at: 0, data: null };
 let inflight = null;
 let lastFail = { at: 0, err: null }; // brief negative cache so failures don't hammer Graph API
 
+async function graphGet(url) {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 15000);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal });
+    const body = await res.json();
+    if (!res.ok || body.error) throw new Error("Graph API error: " + scrub(body && body.error ? body.error.message : "HTTP " + res.status));
+    return body;
+  } finally { clearTimeout(t); }
+}
+
+async function findAlbumId() {
+  if (ALBUM_ID) return ALBUM_ID;
+  let url = `${GRAPH}/${encodeURIComponent(PAGE_ID)}/albums?` + new URLSearchParams({ fields: "id,name", limit: "100", access_token: TOKEN });
+  for (let page = 0; url && page < MAX_PAGES; page++) {
+    const body = await graphGet(url);
+    const hit = (body.data || []).find(a => String(a.name || "").trim().toLowerCase() === ALBUM_NAME);
+    if (hit) return hit.id;
+    url = body.paging && body.paging.next ? body.paging.next : null;
+  }
+  return null;
+}
+
 async function fetchAllPhotos() {
   if (!TOKEN) throw new Error("FB_PAGE_TOKEN is not configured on the server.");
+  const albumId = await findAlbumId();
+  if (!albumId) return []; // album not created yet: show nothing (never fall back to all Page photos)
   const params = new URLSearchParams({
-    type: "uploaded", fields: "id,created_time,images,name,link", limit: "100", access_token: TOKEN
+    fields: "id,created_time,images,name,link", limit: "100", access_token: TOKEN
   });
-  let url = `${GRAPH}/${encodeURIComponent(PAGE_ID)}/photos?${params}`;
+  let url = `${GRAPH}/${encodeURIComponent(albumId)}/photos?${params}`;
   const out = [];
   for (let page = 0; url && page < MAX_PAGES; page++) {
     const ctrl = new AbortController();
@@ -136,7 +165,7 @@ const server = http.createServer(async (req, res) => {
 
   if (pathname === "/healthz") return send(res, 200, "ok", MIME[".txt"]);
 
-  if (pathname === "/api/photos") {
+  if (pathname === "/api/photos" || pathname === "/api/photos.json") {
     // No token configured: the site still works as plain HTML; the photo sections stay hidden.
     if (!TOKEN) return send(res, 200, "[]", MIME[".json"], { "Cache-Control": "no-store", "X-Photos-Configured": "false" });
     try {
@@ -154,6 +183,11 @@ const server = http.createServer(async (req, res) => {
   serveStatic(req, res, pathname);
 });
 
-server.listen(PORT, () => {
-  console.log(`Troop 84 site running at http://localhost:${PORT}  (Facebook token ${TOKEN ? "configured" : "MISSING"})`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`Troop 84 site running at http://localhost:${PORT}  (Facebook token ${TOKEN ? "configured" : "MISSING"})`);
+  });
+}
+
+// Used by scripts/build-pages.js to produce the static GitHub Pages build.
+module.exports = { fetchAllPhotos, scrub, PUBLIC_DIR, hasToken: !!TOKEN };

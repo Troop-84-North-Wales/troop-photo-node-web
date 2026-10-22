@@ -33,7 +33,7 @@ window.TROOP_CONFIG = {
   // --- Photo galleries ------------------------------------------------
   // PLACEHOLDER: paste the share link for each gallery.
   // Leave as-is (or "") to hide a gallery card.
-  facebookPhotosUrl: "https://www.facebook.com/1312640681940485/photos",
+  facebookPhotosUrl: "https://www.facebook.com/Troop84NWalesPA/photos",
 
   // --- Facebook photo carousel ------------------------------------------
   // Photos are loaded live from the server's /api/photos endpoint.

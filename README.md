@@ -91,3 +91,11 @@ Note: Render's free plan sleeps after inactivity, so the first visit can take ~3
 Page text is plain HTML in `public/`. Calendar and gallery links are in `public/js/config.js`.
 To add photos to the carousel, just upload them to the Facebook Page — they appear within 15 minutes
 (or restart the server).
+
+## Fundraising posters only
+The carousel shows **only** the photos in one album on the backup Facebook Page, named `Fundraisers` by default (change it with `FB_ALBUM_NAME`, or pin it with `FB_ALBUM_ID`). Photos elsewhere on the Page are never shown. If the album doesn't exist or is empty, the poster section stays hidden. New posters show up within about 15 minutes of being added to the album.
+
+## GitHub Pages (static hosting)
+`.github/workflows/pages.yml` builds and deploys the site to GitHub Pages on every push to `main`, every 6 hours (Facebook image links expire), and on demand from the Actions tab. The build (`npm run build:pages`) copies `public/` and writes `api/photos.json` with only the Fundraisers album; the token is read from the repo secret `FB_PAGE_TOKEN` and never ends up in the site.
+
+One-time setup: **Settings → Pages → Source: GitHub Actions**, and **Settings → Secrets and variables → Actions → New repository secret** `FB_PAGE_TOKEN`. Without the secret the site still deploys, just without posters.

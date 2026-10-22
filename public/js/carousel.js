@@ -17,7 +17,7 @@
   var photosPromise = null;
   function loadPhotos() {
     if (!photosPromise) {
-      photosPromise = fetch("/api/photos", { headers: { Accept: "application/json" } })
+      photosPromise = fetch("api/photos.json", { headers: { Accept: "application/json" } })
         .then(function (r) {
           return r.json().then(function (j) {
             if (!r.ok || !Array.isArray(j)) throw new Error((j && j.error) || "HTTP " + r.status);
